@@ -34,10 +34,15 @@ namespace MonsterCardTradingGame
                     if (Regex.IsMatch(this.path, "/users/([0-9a-zA-Z.-]+)"))
                         return new GetUsers().processRequest(this.request);
                     return ResponseHelper.notFound();
+                
                 case Methode.PUT:
-                    return ResponseHelper.notFound();
+                    if (Regex.IsMatch(this.path, "/users/([0-9a-zA-Z.-]+)"))
+                        return new PutUsers().processRequest(this.request);
+                        return ResponseHelper.notFound();
+                
                 case Methode.DELETE:
                     return ResponseHelper.notFound();
+                
                 default:
                     return ResponseHelper.notFound();
             }

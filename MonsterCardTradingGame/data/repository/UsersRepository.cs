@@ -92,5 +92,23 @@ namespace MonsterCardTradingGame.data.repository
             }
             return null;
         }
+
+        public bool updateUser(String name,String bio,String image,String username)
+        {
+            String query = String.Format("Update users set name= '{0}' , bio = '{1}', image= '{2}' where username= '{3}'" ,name, bio,image,username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
     }
 }
