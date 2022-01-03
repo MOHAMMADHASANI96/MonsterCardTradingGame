@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static MonsterCardTradingGame.Request;
 
@@ -30,6 +31,8 @@ namespace MonsterCardTradingGame
                         return ResponseHelper.notFound();
 
                 case Methode.GET:
+                    if (Regex.IsMatch(this.path, "/users/([0-9a-zA-Z.-]+)"))
+                        return new GetUsers().processRequest(this.request);
                     return ResponseHelper.notFound();
                 case Methode.PUT:
                     return ResponseHelper.notFound();

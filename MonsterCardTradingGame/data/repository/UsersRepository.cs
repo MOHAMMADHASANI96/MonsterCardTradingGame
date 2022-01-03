@@ -64,5 +64,33 @@ namespace MonsterCardTradingGame.data.repository
             }
             return null;
         }
+
+        public User getUserbyToken(String token)
+        {
+            String query = String.Format("Select * from users where token = '{0}'", token);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+                while (npgsqlDataReader.Read())
+                {
+                    return new User(
+                        npgsqlDataReader["username"].ToString(),
+                        npgsqlDataReader["name"].ToString(),
+                        npgsqlDataReader["password"].ToString(),
+                        npgsqlDataReader["token"].ToString(),
+                        npgsqlDataReader["bio"].ToString(),
+                        npgsqlDataReader["image"].ToString(),
+                        Convert.ToInt32(npgsqlDataReader["coin"])
+                        );
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+
+            }
+            return null;
+        }
     }
 }

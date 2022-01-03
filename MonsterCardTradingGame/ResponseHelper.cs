@@ -52,6 +52,12 @@ namespace MonsterCardTradingGame
             response.Send(Response.StatusCode.Bad_Request, response.status_Code_Value[Response.StatusCode.Bad_Request], response.content_Type_Value[Response.ContentType.HTML]);
             return response;
         }
+        public static Response forbidden()
+        {
+            Response response = new Response();
+            response.Send(Response.StatusCode.Forbidden, response.status_Code_Value[Response.StatusCode.Forbidden], response.content_Type_Value[Response.ContentType.HTML]);
+            return response;
+        }
 
     }
 }

@@ -26,6 +26,5 @@ namespace MonsterCardTradingGame.data.entity
             this.image = image;
             this.coin = coin;
         }
-
     }
 }
