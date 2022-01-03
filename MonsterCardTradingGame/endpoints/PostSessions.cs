@@ -1,4 +1,5 @@
-﻿using MonsterCardTradingGame.data.repository;
+﻿using MonsterCardTradingGame.data.entity;
+using MonsterCardTradingGame.data.repository;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.endpoints
 {
-    public class PostUsers : IEndpoints
+    public class PostSessions : IEndpoints
     {
         private UserObject userObject;
         struct UserObject
@@ -22,10 +23,13 @@ namespace MonsterCardTradingGame.endpoints
             {
                 this.userObject = JsonConvert.DeserializeObject<UserObject>(request.payload);
                 if (String.IsNullOrEmpty(this.userObject.username) || String.IsNullOrEmpty(this.userObject.password))
-                    return ResponseHelper.jsonInvalid("Username or Password is empty");
-                if (!new UsersRepository().addUser(this.userObject.username, this.userObject.password))
-                    return ResponseHelper.jsonInvalid("Username exists");
-                return ResponseHelper.ok();
+                    return ResponseHelper.jsonInvalid();
+                User user = new UsersRepository().getUser(this.userObject.username);
+                if (user == null)
+                    return ResponseHelper.notFound("Username does not exist");
+                if(!user.password.Equals(this.userObject.password))
+                    return ResponseHelper.notFound("password does not correct");
+                return ResponseHelper.ok("login successful");
             }
             catch (Exception exception)
             {

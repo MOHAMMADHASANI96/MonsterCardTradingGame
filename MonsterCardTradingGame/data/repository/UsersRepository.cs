@@ -1,4 +1,5 @@
-﻿using MTCG.data;
+﻿using MonsterCardTradingGame.data.entity;
+using MTCG.data;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MonsterCardTradingGame.data.repository
         {
             this.NpgsqlConn = new NpgsqlConn().getnpgsqlConn();
         }
+        // Registration
         public bool addUser(String username, String password)
         {
             String query = String.Format("INSERT INTO users(username, name, password, token, bio, image) " +
@@ -32,6 +34,35 @@ namespace MonsterCardTradingGame.data.repository
                 Console.WriteLine("Error:" + exception.Message);
                 return false;
             }
+        }
+
+        // Login
+        public User getUser(String username)
+        {
+            String query = String.Format("Select * from users where username = '{0}'", username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+                while (npgsqlDataReader.Read())
+                {
+                    return new User(
+                        npgsqlDataReader["username"].ToString(),
+                        npgsqlDataReader["name"].ToString(),
+                        npgsqlDataReader["password"].ToString(),
+                        npgsqlDataReader["token"].ToString(),
+                        npgsqlDataReader["bio"].ToString(),
+                        npgsqlDataReader["image"].ToString(),
+                        Convert.ToInt32(npgsqlDataReader["coin"])
+                        );
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                
+            }
+            return null;
         }
     }
 }

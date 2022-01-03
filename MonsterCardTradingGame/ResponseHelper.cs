@@ -14,6 +14,12 @@ namespace MonsterCardTradingGame
             response.Send(Response.StatusCode.OK, response.status_Code_Value[Response.StatusCode.OK], response.content_Type_Value[Response.ContentType.HTML]);
             return response;
         }
+        public static Response ok(String msg)
+        {
+            Response response = new Response();
+            response.Send(Response.StatusCode.OK,msg, response.content_Type_Value[Response.ContentType.HTML]);
+            return response;
+        }
         public static Response serverError()
         {
             Response response = new Response();
@@ -24,6 +30,13 @@ namespace MonsterCardTradingGame
         {
             Response response = new Response();
             response.Send(Response.StatusCode.Not_Found, response.status_Code_Value[Response.StatusCode.Not_Found], response.content_Type_Value[Response.ContentType.HTML]);
+            return response;
+        }
+
+        public static Response notFound(String msg)
+        {
+            Response response = new Response();
+            response.Send(Response.StatusCode.Not_Found, msg, response.content_Type_Value[Response.ContentType.HTML]);
             return response;
         }
 

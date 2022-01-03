@@ -23,13 +23,11 @@ namespace MonsterCardTradingGame
             {
                 case Methode.POST:
                     if (this.path.Equals("/users"))
-                    {
                         return new PostUsers().processRequest(this.request);
-                    }
+                    else if (this.path.Equals("/sessions"))
+                        return new PostSessions().processRequest(this.request);
                     else
-                    {
                         return ResponseHelper.notFound();
-                    }
 
                 case Methode.GET:
                     return ResponseHelper.notFound();
