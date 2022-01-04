@@ -110,5 +110,24 @@ namespace MonsterCardTradingGame.data.repository
                 return false;
             }
         }
+
+        public bool updateCoin(int coin, String username)
+        {
+            String query = String.Format("Update users set coin= '{0}' where username= '{1}'", coin,username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+
     }
 }

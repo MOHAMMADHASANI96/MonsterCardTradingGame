@@ -30,6 +30,8 @@ namespace MonsterCardTradingGame
                         return new PostSessions().processRequest(this.request);
                     else if (this.path.Equals("/packages"))
                         return new PostPackages().processRequest(this.request);
+                    else if (this.path.Equals("/transactions/packages"))
+                        return new PostTransactions().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
