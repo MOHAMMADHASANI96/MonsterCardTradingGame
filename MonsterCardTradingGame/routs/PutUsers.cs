@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.endpoints
 {
-    public class PutUsers : IEndpoints
+    public class PutUsers : IRouts
     {
         private UserObject userObject;
         struct UserObject
@@ -26,7 +26,7 @@ namespace MonsterCardTradingGame.endpoints
             {
                 User user = new Autorization().authorize(request);
                 if (user == null)
-                    return ResponseHelper.notFound();of
+                    return ResponseHelper.notFound();
 
                 String[] subString = Regex.Split(request.path, "/users/");
                 if (subString[0] == null || subString[1] == null || !user.username.Equals(subString[1]))

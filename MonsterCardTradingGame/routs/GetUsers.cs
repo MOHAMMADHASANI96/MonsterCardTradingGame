@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.endpoints
 {
-    public class GetUsers : IEndpoints
+    public class GetUsers : IRouts
     {
         public Response processRequest(Request request)
         {

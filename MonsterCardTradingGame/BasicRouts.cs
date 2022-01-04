@@ -1,4 +1,5 @@
 ﻿using MonsterCardTradingGame.endpoints;
+using MonsterCardTradingGame.routs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using static MonsterCardTradingGame.Request;
 
 namespace MonsterCardTradingGame
 {
-    public class EndpointController
+    public class BasicRouts
     {
         private String path;
         private Request request;
@@ -27,6 +28,8 @@ namespace MonsterCardTradingGame
                         return new PostUsers().processRequest(this.request);
                     else if (this.path.Equals("/sessions"))
                         return new PostSessions().processRequest(this.request);
+                    else if (this.path.Equals("/packages"))
+                        return new PostPackages().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 

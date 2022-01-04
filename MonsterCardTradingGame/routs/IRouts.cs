@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.endpoints
 {
-    public interface IEndpoints
+    public interface IRouts
     {
         public Response processRequest(Request request);
     }

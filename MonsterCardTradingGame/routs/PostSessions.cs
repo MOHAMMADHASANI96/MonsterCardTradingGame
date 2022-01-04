@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.endpoints
 {
-    public class PostSessions : IEndpoints
+    public class PostSessions : IRouts
     {
         private UserObject userObject;
         struct UserObject

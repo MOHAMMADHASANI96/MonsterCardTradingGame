@@ -9,7 +9,7 @@ namespace MonsterCardTradingGame
     class Program
     {
         private static int Port = 10001;
-        public static EndpointController endpointController = new EndpointController();
+        public static BasicRouts endpointController = new BasicRouts();
         static void Main(string[] args)
         {
             TcpListener tcpListener = null;
