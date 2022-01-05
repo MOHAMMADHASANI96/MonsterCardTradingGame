@@ -18,7 +18,7 @@ namespace MonsterCardTradingGame.routs
             {
                 User user = new Autorization().authorize(request);
                 if (user == null)
-                    return ResponseHelper.notFound();
+                    return ResponseHelper.forbidden("No valid authorization token");
 
                 if (user.coin < 5)
                     return ResponseHelper.forbidden("Coin is not enough");

@@ -21,7 +21,7 @@ namespace MonsterCardTradingGame
             TcpClient client = socket;
             try
             {
-                Console.WriteLine("-------opend-------");
+                Console.WriteLine("-------open-------");
                 // take request -> seprate information 
                 Request request = new Request(new StreamReader(client.GetStream()));
 
@@ -37,7 +37,7 @@ namespace MonsterCardTradingGame
                     response = ResponseHelper.serverError();
                 }
                 response.Send(new StreamWriter(client.GetStream()));
-                Console.WriteLine("-------closed-------");
+                Console.WriteLine("-------close-------");
             }
             catch (Exception exception)
             {

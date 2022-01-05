@@ -66,5 +66,12 @@ namespace MonsterCardTradingGame
             return response;
         }
 
+        public static Response okJsonPayload(string jsonString)
+        {
+            Response response = new Response();
+            response.Send(Response.StatusCode.OK, jsonString, response.content_Type_Value[Response.ContentType.JSON]);
+            return response;
+        }
+
     }
 }
