@@ -48,8 +48,12 @@ namespace MonsterCardTradingGame
                 case Methode.PUT:
                     if (Regex.IsMatch(this.path, "/users/([0-9a-zA-Z.-]+)"))
                         return new PutUsers().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/deck"))
+                        return new PutDecks().processRequest(this.request);
+                    else
                         return ResponseHelper.notFound();
-                
+
+
                 case Methode.DELETE:
                     return ResponseHelper.notFound();
                 

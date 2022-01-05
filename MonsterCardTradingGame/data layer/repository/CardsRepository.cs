@@ -117,7 +117,7 @@ namespace MonsterCardTradingGame.data_layer.repository
 
         public List<Card> getDeckByUsername(String username)
         {
-            String query = String.Format("select * from cards where username ='altenhof' and is_deck =true", username);
+            String query = String.Format("select * from cards where username ='{0}' and is_deck =true", username);
             List<Card> cardList = new List<Card>();
             try
             {
@@ -139,6 +139,42 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return null;
             }
             return cardList;
+        }
+
+        public bool controlCardBelongsToUsername(String username, String id)
+        {
+            String query = String.Format("select * from cards where username ='{0}' and id='{1}' and is_deck=false", username,id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+                if (dataReader.Read() == false)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+
+        public bool updateDeck(String id)
+        {
+            String query = String.Format("Update cards Set is_deck =true where id = '{0}'",id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
         }
     }
 }
