@@ -13,16 +13,16 @@ namespace MonsterCardTradingGame.data_layer.entity
         public double damage { get; private set; }
         public int packageId { get; private set; }
         public String username { get; private set; }
-        public bool isDeck { get; private set; }
+        public bool is_deck { get; private set; }
 
-        public Card(String id, String name, double damage, int packageId, String username, bool isDeck)
+        public Card(String id, String name, double damage, int packageId, String username, bool is_deck)
         {
             this.id = id;
             this.name = name;
             this.damage = damage;
             this.packageId = packageId;
             this.username = username;
-            this.isDeck = isDeck;
+            this.is_deck = is_deck;
         }
     }
 }

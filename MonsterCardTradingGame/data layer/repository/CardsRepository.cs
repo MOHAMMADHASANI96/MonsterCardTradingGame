@@ -104,7 +104,7 @@ namespace MonsterCardTradingGame.data_layer.repository
                         Convert.ToDouble(npgsqlDataReader["damage"]),
                         Convert.ToInt32(npgsqlDataReader["package_id"]),
                         npgsqlDataReader["username"].ToString(),
-                         Convert.ToBoolean(npgsqlDataReader["isDeck"])
+                         Convert.ToBoolean(npgsqlDataReader["is_deck"])
                         ));
             }
             catch (Exception exception)
@@ -115,5 +115,30 @@ namespace MonsterCardTradingGame.data_layer.repository
             return cardList;
         }
 
+        public List<Card> getDeckByUsername(String username)
+        {
+            String query = String.Format("select * from cards where username ='altenhof' and is_deck =true", username);
+            List<Card> cardList = new List<Card>();
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+                while (npgsqlDataReader.Read())
+                    cardList.Add(new Card(
+                    npgsqlDataReader["id"].ToString(),
+                    npgsqlDataReader["name"].ToString(),
+                    Convert.ToDouble(npgsqlDataReader["damage"]),
+                    Convert.ToInt32(npgsqlDataReader["package_id"]),
+                    npgsqlDataReader["username"].ToString(),
+                     Convert.ToBoolean(npgsqlDataReader["is_deck"])
+                    ));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return null;
+            }
+            return cardList;
+        }
     }
 }

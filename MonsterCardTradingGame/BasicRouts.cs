@@ -40,6 +40,8 @@ namespace MonsterCardTradingGame
                         return new GetUsers().processRequest(this.request);
                     else if(Regex.IsMatch(this.path, "/cards"))
                         return new GetCards().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/deck"))
+                        return new GetDecks().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
