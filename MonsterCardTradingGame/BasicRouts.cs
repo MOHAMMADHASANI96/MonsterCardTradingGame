@@ -45,6 +45,10 @@ namespace MonsterCardTradingGame
                         return new GetDeckPlainFormat().processRequest(this.request);
                     else if (Regex.IsMatch(this.path, "/deck"))
                         return new GetDecks().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/stats"))
+                        return new GetStats().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/score"))
+                        return new GetScoreboard().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 

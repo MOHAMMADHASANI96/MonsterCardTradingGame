@@ -35,7 +35,6 @@ namespace MonsterCardTradingGame.data.repository
                 return false;
             }
         }
-
         // Login
         public User getUser(String username)
         {

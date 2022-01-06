@@ -158,7 +158,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public bool updateDeck(String id)
         {
             String query = String.Format("Update cards Set is_deck =true where id = '{0}'",id);
