@@ -1,5 +1,6 @@
 ﻿using MonsterCardTradingGame.endpoints;
 using MonsterCardTradingGame.routs;
+using MonsterCardTradingGame.routs.get;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace MonsterCardTradingGame
                         return new GetUsers().processRequest(this.request);
                     else if(Regex.IsMatch(this.path, "/cards"))
                         return new GetCards().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/deck[?]format=([0-9a-zA-Z.-]+)"))
+                        return new GetDeckPlainFormat().processRequest(this.request);
                     else if (Regex.IsMatch(this.path, "/deck"))
                         return new GetDecks().processRequest(this.request);
                     else
