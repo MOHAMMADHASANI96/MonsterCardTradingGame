@@ -16,6 +16,29 @@ namespace MonsterCardTradingGame.data_layer.repository
         {
             this.NpgsqlConn = new NpgsqlConn().getnpgsqlConn();
         }
+        public Trade getTradeById(String id)
+        {
+            String query = String.Format("select * from trades where id = '{0}'");
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+                while (npgsqlDataReader.Read())
+                    return new Trade(
+                    npgsqlDataReader["username"].ToString(),
+                    npgsqlDataReader["id"].ToString(),
+                    npgsqlDataReader["card_id"].ToString(),
+                    npgsqlDataReader["type"].ToString(),
+                    Convert.ToDouble(npgsqlDataReader["min_damage"]),
+                     Convert.ToBoolean(npgsqlDataReader["is_sold"])
+                    );
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);   
+            }
+            return null;
+        }
         public List<Trade> getTrade()
         {
             String query = String.Format("select * from trades");

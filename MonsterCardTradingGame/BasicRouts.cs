@@ -35,6 +35,8 @@ namespace MonsterCardTradingGame
                         return new PostPackages().processRequest(this.request);
                     else if (this.path.Equals("/transactions/packages"))
                         return new PostTransactions().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/tradings/([0-9a-zA-Z.-]+)"))
+                        return new PostCardTrade().processRequest(this.request);
                     else if (this.path.Equals("/tradings"))
                         return new PostTradings().processRequest(this.request);
                     else
