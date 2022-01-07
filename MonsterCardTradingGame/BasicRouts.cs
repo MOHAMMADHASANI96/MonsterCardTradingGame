@@ -49,6 +49,8 @@ namespace MonsterCardTradingGame
                         return new GetStats().processRequest(this.request);
                     else if (Regex.IsMatch(this.path, "/score"))
                         return new GetScoreboard().processRequest(this.request);
+                    else if (Regex.IsMatch(this.path, "/tradings"))
+                        return new GetTrading().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
