@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.routs.post
 {
-    public class PostTrading : IRouts
+    public class PostTradings : IRouts
     {
 
         private TradeObject tradeObject;

@@ -1,5 +1,6 @@
 ﻿using MonsterCardTradingGame.endpoints;
 using MonsterCardTradingGame.routs;
+using MonsterCardTradingGame.routs.delete;
 using MonsterCardTradingGame.routs.get;
 using MonsterCardTradingGame.routs.post;
 using System;
@@ -35,7 +36,7 @@ namespace MonsterCardTradingGame
                     else if (this.path.Equals("/transactions/packages"))
                         return new PostTransactions().processRequest(this.request);
                     else if (this.path.Equals("/tradings"))
-                        return new PostTrading().processRequest(this.request);
+                        return new PostTradings().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
@@ -53,7 +54,7 @@ namespace MonsterCardTradingGame
                     else if (Regex.IsMatch(this.path, "/score"))
                         return new GetScoreboard().processRequest(this.request);
                     else if (Regex.IsMatch(this.path, "/tradings"))
-                        return new GetTrading().processRequest(this.request);
+                        return new GetTradings().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
@@ -67,7 +68,10 @@ namespace MonsterCardTradingGame
 
 
                 case Methode.DELETE:
-                    return ResponseHelper.notFound();
+                    if (Regex.IsMatch(this.path, "/tradings/([0-9a-zA-Z.-]+)"))
+                        return new DeleteTradings().processRequest(this.request);
+                    else
+                        return ResponseHelper.notFound();
                 
                 default:
                     return ResponseHelper.notFound();

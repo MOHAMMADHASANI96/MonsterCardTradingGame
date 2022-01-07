@@ -58,11 +58,44 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public bool addTrade(String username, String id,String card_id, String type, double min_damage)
         {
             String query = String.Format("INSERT INTO trades(username, id, card_id, type, min_damage, is_sold) " +
                "VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", username, id, card_id, type, min_damage,false);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool checkTradeById(String id)
+        {
+            String query = String.Format("select * from trades where id ='{0}'", id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+                if (dataReader.Read() == false)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool deleteTradeById(String id)
+        {
+            String query = String.Format("delete from trades where id ='{0}'", id);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);

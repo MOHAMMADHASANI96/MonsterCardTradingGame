@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardTradingGame.routs.get
 {
-    public class GetTrading : IRouts
+    public class GetTradings : IRouts
     {
         public Response processRequest(Request request)
         {
