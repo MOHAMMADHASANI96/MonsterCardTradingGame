@@ -52,7 +52,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public int getFirstFreePackageId()
         {
             String query = String.Format("Select package_id from cards where username = '' group by package_id order by package_id limit 1");
@@ -70,7 +69,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return -1;
             }
         }
-
         public bool updateUsernameAfterGetPackage(String username,int packageId)
         {
             String query = String.Format("Update cards Set username ='{0}' where Package_id = '{1}'", username, packageId);
@@ -88,7 +86,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public List<Card> getListOfCardsByUsername(String username)
         {
             String query = String.Format("select * from cards where username ='{0}'", username);
@@ -114,7 +111,6 @@ namespace MonsterCardTradingGame.data_layer.repository
             }
             return cardList;
         }
-
         public List<Card> getDeckByUsername(String username)
         {
             String query = String.Format("select * from cards where username ='{0}' and is_deck =true", username);
@@ -140,7 +136,6 @@ namespace MonsterCardTradingGame.data_layer.repository
             }
             return cardList;
         }
-
         public bool controlCardBelongsToUsername(String username, String id)
         {
             String query = String.Format("select * from cards where username ='{0}' and id='{1}' and is_deck=false", username,id);
@@ -175,5 +170,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
+       
     }
 }

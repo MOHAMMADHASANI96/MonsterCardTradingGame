@@ -1,6 +1,7 @@
 ﻿using MonsterCardTradingGame.endpoints;
 using MonsterCardTradingGame.routs;
 using MonsterCardTradingGame.routs.get;
+using MonsterCardTradingGame.routs.post;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace MonsterCardTradingGame
                         return new PostPackages().processRequest(this.request);
                     else if (this.path.Equals("/transactions/packages"))
                         return new PostTransactions().processRequest(this.request);
+                    else if (this.path.Equals("/tradings"))
+                        return new PostTrading().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
