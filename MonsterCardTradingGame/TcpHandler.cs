@@ -28,7 +28,7 @@ namespace MonsterCardTradingGame
                 Response response;
                 try
                 {
-                    response = Program.endpointController.getResponse(request);
+                    response = Program.basicRouts.getResponse(request);
 
                 }
                 catch (Exception exception)

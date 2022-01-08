@@ -198,7 +198,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public bool updateUsernameOfCardById(String username, String id)
         {
             String query = String.Format("Update cards Set username ='{0}' where id = '{1}'", username, id);
@@ -216,6 +215,5 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
     }
 }

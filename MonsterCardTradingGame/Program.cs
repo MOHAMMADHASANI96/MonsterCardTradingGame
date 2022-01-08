@@ -1,4 +1,5 @@
-﻿using MTCG.repository;
+﻿using MonsterCardTradingGame.battle;
+using MTCG.repository;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -9,7 +10,8 @@ namespace MonsterCardTradingGame
     class Program
     {
         private static int Port = 10001;
-        public static BasicRouts endpointController = new BasicRouts();
+        public static BasicRouts basicRouts = new BasicRouts();
+        public static BasicPlay basicPlay = new BasicPlay();
         static void Main(string[] args)
         {
             TcpListener tcpListener = null;

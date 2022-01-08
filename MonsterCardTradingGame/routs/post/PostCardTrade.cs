@@ -16,7 +16,6 @@ namespace MonsterCardTradingGame.routs.post
     {
         public Response processRequest(Request request)
         {
-
             try
             {
                 User user = new Autorization().authorize(request);

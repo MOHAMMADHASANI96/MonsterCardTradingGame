@@ -39,6 +39,8 @@ namespace MonsterCardTradingGame
                         return new PostCardTrade().processRequest(this.request);
                     else if (this.path.Equals("/tradings"))
                         return new PostTradings().processRequest(this.request);
+                    else if (this.path.Equals("/battles"))
+                        return new PostBattles().processRequest(this.request);
                     else
                         return ResponseHelper.notFound();
 
