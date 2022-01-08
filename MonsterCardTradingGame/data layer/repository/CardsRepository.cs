@@ -30,7 +30,9 @@ namespace MonsterCardTradingGame.data_layer.repository
                     Convert.ToDouble(npgsqlDataReader["damage"]),
                     Convert.ToInt32(npgsqlDataReader["package_id"]),
                     npgsqlDataReader["username"].ToString(),
-                     Convert.ToBoolean(npgsqlDataReader["is_deck"])
+                     Convert.ToBoolean(npgsqlDataReader["is_deck"]),
+                     npgsqlDataReader["element_type"].ToString(),
+                     npgsqlDataReader["card_type"].ToString()
                     );
             }
             catch (Exception exception)
@@ -56,10 +58,10 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return -1;
             }
         }
-        public bool addCard(String id,String name , double damage, int package_id)
+        public bool addCard(String id,String name , double damage, int package_id,String element_type, String card_type)
         {
-            String query = String.Format("INSERT INTO cards(id,name,damage,package_id,username) " +
-                "VALUES('{0}','{1}','{2}','{3}','{4}')", id, name, damage, package_id,null);
+            String query = String.Format("INSERT INTO cards(id,name,damage,package_id,username,element_type,card_type) " +
+                "VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", id, name, damage, package_id,null,element_type,card_type);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
@@ -123,7 +125,9 @@ namespace MonsterCardTradingGame.data_layer.repository
                         Convert.ToDouble(npgsqlDataReader["damage"]),
                         Convert.ToInt32(npgsqlDataReader["package_id"]),
                         npgsqlDataReader["username"].ToString(),
-                         Convert.ToBoolean(npgsqlDataReader["is_deck"])
+                        Convert.ToBoolean(npgsqlDataReader["is_deck"]),
+                        npgsqlDataReader["element_type"].ToString(),
+                        npgsqlDataReader["card_type"].ToString()
                         ));
             }
             catch (Exception exception)
@@ -148,7 +152,9 @@ namespace MonsterCardTradingGame.data_layer.repository
                     Convert.ToDouble(npgsqlDataReader["damage"]),
                     Convert.ToInt32(npgsqlDataReader["package_id"]),
                     npgsqlDataReader["username"].ToString(),
-                     Convert.ToBoolean(npgsqlDataReader["is_deck"])
+                    Convert.ToBoolean(npgsqlDataReader["is_deck"]),
+                    npgsqlDataReader["element_type"].ToString(),
+                    npgsqlDataReader["card_type"].ToString()
                     ));
             }
             catch (Exception exception)
@@ -192,6 +198,24 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-       
+
+        public bool updateUsernameOfCardById(String username, String id)
+        {
+            String query = String.Format("Update cards Set username ='{0}' where id = '{1}'", username, id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+
     }
 }

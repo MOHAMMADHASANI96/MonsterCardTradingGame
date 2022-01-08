@@ -45,16 +45,24 @@ namespace MonsterCardTradingGame.routs.post
                 //buyer and seller doese not same
                 if (trade.username.Equals(card.username))
                     return ResponseHelper.forbidden("Buyer and Seller are same!");
-                //check type of card to match
-
                 //check minimum damage to provide
-                if(trade.min_damage > card.damage)
+                if (trade.min_damage > card.damage)
                     return ResponseHelper.forbidden("The damage of this card is less than the damage requested");
-                //exchange cards and ok response
+                //check type of card to match
+                if (trade.type.ToLower().Equals("spell") && card.card_type.ToLower().Equals("spell") ||
+                   !trade.type.ToLower().Equals("spell") && !card.card_type.ToLower().Equals("spell"))
+                {
+                    // update trade table -> is_sold = true
+                    if (!new TradesRepository().updateIsSoldById(id_trade))
+                        return ResponseHelper.serverError();
+                    // update card 
+                    if(!new CardsRepository().updateUsernameOfCardById(card.username,trade.trade_id) ||
+                       !new CardsRepository().updateUsernameOfCardById(trade.username, id_buyer))
+                        return ResponseHelper.serverError();
+                    return ResponseHelper.ok();
+                }
 
-
-
-                return ResponseHelper.ok();
+                return ResponseHelper.forbidden("The type of cards does not match");
             }
             catch (Exception exception)
             {

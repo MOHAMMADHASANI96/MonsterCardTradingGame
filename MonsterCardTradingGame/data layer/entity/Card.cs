@@ -14,8 +14,10 @@ namespace MonsterCardTradingGame.data_layer.entity
         public int packageId { get; private set; }
         public String username { get; private set; }
         public bool is_deck { get; private set; }
+        public String element_type { get; private set; }
+        public String card_type { get; private set; }
 
-        public Card(String id, String name, double damage, int packageId, String username, bool is_deck)
+        public Card(String id, String name, double damage, int packageId, String username, bool is_deck,String element_type, String card_type)
         {
             this.id = id;
             this.name = name;
@@ -23,6 +25,8 @@ namespace MonsterCardTradingGame.data_layer.entity
             this.packageId = packageId;
             this.username = username;
             this.is_deck = is_deck;
+            this.element_type = element_type;
+            this.card_type = card_type;
         }
     }
 }

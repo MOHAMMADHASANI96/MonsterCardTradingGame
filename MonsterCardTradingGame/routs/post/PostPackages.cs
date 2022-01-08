@@ -1,6 +1,7 @@
 ﻿using MonsterCardTradingGame.data.entity;
 using MonsterCardTradingGame.data_layer.repository;
 using MonsterCardTradingGame.endpoints;
+using MonsterCardTradingGame.routs.Help;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,8 @@ namespace MonsterCardTradingGame.routs
                     {
                         if (String.IsNullOrEmpty(cardObject.Id) || String.IsNullOrEmpty(cardObject.Name) || cardObject.Damage==0)
                             return ResponseHelper.jsonInvalid();
-                        if (!new CardsRepository().addCard(cardObject.Id,cardObject.Name, cardObject.Damage,package_id))
+                        NameSeparation nameSeparation = new NameSeparation(cardObject.Name);
+                        if (!new CardsRepository().addCard(cardObject.Id,cardObject.Name, cardObject.Damage,package_id,nameSeparation.element_type,nameSeparation.card_type))
                             return ResponseHelper.forbidden();
                     }
                     return ResponseHelper.ok();

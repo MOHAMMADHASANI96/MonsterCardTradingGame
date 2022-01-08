@@ -18,7 +18,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public Trade getTradeById(String id)
         {
-            String query = String.Format("select * from trades where id = '{0}'");
+            String query = String.Format("select * from trades where id = '{0}'",id);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
@@ -119,6 +119,24 @@ namespace MonsterCardTradingGame.data_layer.repository
         public bool deleteTradeById(String id)
         {
             String query = String.Format("delete from trades where id ='{0}'", id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool updateIsSoldById(String id)
+        {
+
+            String query = String.Format("Update trades Set is_sold =true where id = '{0}'",id);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
