@@ -55,7 +55,7 @@ namespace MonsterCardTradingGame
                 }
                 if(this.httpHeaders.ContainsKey("Content-Type") && this.httpHeaders.ContainsKey("Content-Length"))
                 {
-                    // compair Content_len with payload lenght
+                    // compare Content_len with payload lenght
                     int content_len = Convert.ToInt32(this.httpHeaders["Content-Length"]);
                     char[] buf = new char[content_len];
                     int hasRead = input.Read(buf, 0, content_len);

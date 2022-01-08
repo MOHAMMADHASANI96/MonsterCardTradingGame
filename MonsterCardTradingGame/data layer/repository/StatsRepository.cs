@@ -60,7 +60,6 @@ namespace MonsterCardTradingGame.data_layer.repository
             }
             return null;
         }
-
         public List<Stat> getListStat()
         {
             String query = String.Format("SELECT username, elo, win, lose, draw,num_play FROM stats where username !='admin' order by elo DESC");
@@ -86,6 +85,57 @@ namespace MonsterCardTradingGame.data_layer.repository
             {
                 Console.WriteLine("Error:" + exception.Message);
                 return null;
+            }
+        }
+        public bool updateStatWinnerByUsername(String username)
+        {
+            String query = String.Format("Update stats Set elo =elo+3,win=win+1 where username = '{0}'", username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool updateStatLoserByUsername(String username)
+        {
+            String query = String.Format("Update stats Set elo =elo-5,lose = lose +1 where username = '{0}'", username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool updateStatdrawByUsername(String username)
+        {
+            String query = String.Format("Update stats Set draw = draw +1 where username = '{0}'", username);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
             }
         }
     }

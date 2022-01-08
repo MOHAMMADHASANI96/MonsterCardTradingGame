@@ -33,14 +33,17 @@ namespace MonsterCardTradingGame.routs.post
                 {
                     try
                     {
-                        Thread.Sleep(300);
+                        Thread.Sleep(1000);
                     }
                     catch (Exception exception)
                     {
                         Console.WriteLine("Error:" + exception.Message);
                     }
                 }
-                return ResponseHelper.okJsonPayload(BattleController.getInstance().getResult());
+                //To Do
+                if (BattleController.getInstance().isPlayed()) 
+                    return ResponseHelper.okJsonPayload(BattleController.getInstance().getResult());
+                return ResponseHelper.forbidden("No player ready to play");
             }
             catch (Exception exception)
             {

@@ -9,6 +9,6 @@ namespace MonsterCardTradingGame.battle
 {
     public interface IPlay
     {
-        public bool processRequest(Card cardA, Card cardB);
+        public int processRequest(Card cardA, Card cardB);
     }
 }

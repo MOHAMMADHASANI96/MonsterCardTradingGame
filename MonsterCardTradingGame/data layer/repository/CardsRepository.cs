@@ -181,7 +181,7 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-        public bool updateDeck(String id)
+        public bool updateDeckTrue(String id)
         {
             String query = String.Format("Update cards Set is_deck =true where id = '{0}'",id);
             try
@@ -201,6 +201,23 @@ namespace MonsterCardTradingGame.data_layer.repository
         public bool updateUsernameOfCardById(String username, String id)
         {
             String query = String.Format("Update cards Set username ='{0}' where id = '{1}'", username, id);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                int dataReader = command.ExecuteNonQuery();
+                if (dataReader == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+                return false;
+            }
+        }
+        public bool updateDeckFalse(String id)
+        {
+            String query = String.Format("Update cards Set is_deck =false where id = '{0}'", id);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);

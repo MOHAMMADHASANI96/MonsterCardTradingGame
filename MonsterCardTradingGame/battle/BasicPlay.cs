@@ -10,21 +10,21 @@ namespace MonsterCardTradingGame.battle
 {
     public class BasicPlay
     {
-        public bool getResult(Card cardA,Card cardB)
+        public int getResult(Card cardA,Card cardB)
         {
-            String resultCompair = compairTypeCards(cardA,cardB);
-            switch (resultCompair)
+            String resultCompare = compareTypeCards(cardA,cardB);
+            switch (resultCompare)
             {
                 case "SS":
-                    return new twoSpell().processRequest(cardA, cardB);
+                    return new TwoSpell().processRequest(cardA, cardB);
                 case "MM":
-                    return new twoMonster().processRequest(cardA, cardB);
+                    return new TwoMonster().processRequest(cardA, cardB);
                 default:
-                    return new oneSpellOneMonster().processRequest(cardA, cardB);
+                    return new OneSpellOneMonster().processRequest(cardA, cardB);
             }
         }
 
-        public String compairTypeCards(Card cardA,Card cardB)
+        public String compareTypeCards(Card cardA,Card cardB)
         {
             // 1-> 2 spell  2-> 2 monster  3-> one monster one spell
             if ((cardA.card_type.ToLower().Equals("spell")) && (cardB.card_type.ToLower().Equals("spell")))

@@ -19,8 +19,14 @@ namespace MonsterCardTradingGame.battle
         private List<Card> cardsB;
         static Random rand = new Random();
         private int num_draw = 0;
+        private int win = 0;
+        private int lose = 0;
+        bool is_played = false;
+        private String result = null;
 
-        public BattleController(){}
+
+
+        private BattleController(){}
         public static BattleController getInstance()
         {
             lock(Lock)
@@ -48,10 +54,10 @@ namespace MonsterCardTradingGame.battle
             {
                 if(list_player.Count == 2)
                 {
+                    this.is_played = true;
+
                     this.playerA = list_player.ElementAt(0);
                     this.playerB = list_player.ElementAt(1);
-
-                    //To do
 
                     cardsA = new CardsRepository().getDeckByUsername(this.playerA);
                     cardsB = new CardsRepository().getDeckByUsername(this.playerB);
@@ -64,9 +70,7 @@ namespace MonsterCardTradingGame.battle
                         Card cardA = cardsA.ElementAt(rand_cardsA);
                         Card cardB = cardsB.ElementAt(rand_cardsB);
 
-                        // true -> one player win
-                        // false --> draw
-                        bool result = false;
+                        int result = 0;
                         try
                         {
                             result = Program.basicPlay.getResult(cardA, cardB);
@@ -75,15 +79,52 @@ namespace MonsterCardTradingGame.battle
                         {
                             Console.WriteLine("Error:" + exception.Message);
                         }
-                        if (result == false)
-                            this.num_draw++;
-                        else
+
+                        // 1 -> playerA win
+                        // -1 -> playerB win
+                        // 0 -> draw
+
+                        if(result == 1)
                         {
+                            // update state table  elo playerA ->+3 & elo playerB -> -5 
+                            // update the username of playerB's card & deck -> false
+                            // update deck of card playerA -> false
+                            new StatsRepository().updateStatWinnerByUsername(cardA.username);
+                            new StatsRepository().updateStatLoserByUsername(cardB.username);
+                            new CardsRepository().updateUsernameOfCardById(cardA.username, cardB.id);
+                            new CardsRepository().updateDeckFalse(cardB.id);
+                            new CardsRepository().updateDeckFalse(cardA.id);
+
+                            this.win++;
+                            cardsA.RemoveAt(rand_cardsA);
+                            cardsB.RemoveAt(rand_cardsB);
+
+                        }
+                        else if( result == -1)
+                        {
+                            // update state table  elo playerB ->+3 & elo playerA -> -5 
+                            // update the username of playerA's card & deck -> false
+                            // update deck of card playerB -> false
+                            new StatsRepository().updateStatWinnerByUsername(cardB.username);
+                            new StatsRepository().updateStatLoserByUsername(cardA.username);
+                            new CardsRepository().updateUsernameOfCardById(cardB.username, cardA.id);
+                            new CardsRepository().updateDeckFalse(cardA.id);
+                            new CardsRepository().updateDeckFalse(cardB.id);
+
+                            this.lose++;
                             cardsA.RemoveAt(rand_cardsA);
                             cardsB.RemoveAt(rand_cardsB);
                         }
+                        else
+                        {
+                            // num of darw +1 
+                            // update draw in stat table -> draw +1 PlayerA & PlayerB
+                            num_draw++;
+                            return (new StatsRepository().updateStatdrawByUsername(cardB.username) &&
+                                new StatsRepository().updateStatdrawByUsername(cardA.username));
+                        }
+                        
                     }
-
                     startTime = DateTime.MinValue;
                     return false;
                 }
@@ -95,7 +136,15 @@ namespace MonsterCardTradingGame.battle
         }
         public String getResult()
         {
-            return "Ok";
+            this.result = this.playerA + ": win = " + this.win + " , lose = " + this.lose + " , draw = " + this.num_draw;
+            this.result += this.playerB + ": win = " + this.lose + " , lose = " + this.win + " , draw = " + this.num_draw;
+            return this.result;
+        }
+        public bool isPlayed()
+        {
+            if (this.is_played)
+                return true;
+            return false;
         }
     }
 }

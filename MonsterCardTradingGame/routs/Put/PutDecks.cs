@@ -39,7 +39,7 @@ namespace MonsterCardTradingGame.routs
 
                 foreach (String id in listId)
                 {
-                    if (!new CardsRepository().updateDeck(id))
+                    if (!new CardsRepository().updateDeckTrue(id))
                         return ResponseHelper.serverError();
                 }
                 return ResponseHelper.ok();
