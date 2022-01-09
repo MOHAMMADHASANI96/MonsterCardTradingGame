@@ -30,7 +30,7 @@ namespace MonsterCardTradingGame.battle.play
 
                 // not pure monster & spell -> compere damage double
                 // same twoSpell card
-                return new TwoSpell().processRequest(cardA, cardB);
+                return new TwoSpells().processRequest(cardA, cardB);
             }
             // cardA ->monster & cardB ->spell
             else
@@ -46,11 +46,11 @@ namespace MonsterCardTradingGame.battle.play
 
                 // pure monster & spell -> compare damage
                 else if (isPureMonster(cardA))
-                    return new CardController().compareDamage(cardA.damage, cardB.damage);
+                    return new CardController().compareDamage(cardB.damage, cardA.damage);
 
                 // not pure monster & spell -> compere damage double
                 // same twoSpell card
-                return new TwoSpell().processRequest(cardA, cardB);
+                return new TwoSpells().processRequest(cardB, cardA);
             }
         }
         public bool isSpell(Card card)

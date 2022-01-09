@@ -34,7 +34,6 @@ namespace MonsterCardTradingGame.data_layer.repository
                 return false;
             }
         }
-
         public Stat getStat(String username)
         {
             String query = String.Format("Select * from stats where username='{0}'", username);

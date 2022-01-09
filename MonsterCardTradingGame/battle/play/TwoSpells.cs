@@ -4,7 +4,7 @@ using static MonsterCardTradingGame.battle.CardController;
 
 namespace MonsterCardTradingGame.battle.play
 {
-    public class TwoSpell : IPlay
+    public class TwoSpells : IPlay
     {
         public int processRequest(Card cardA, Card cardB)
         {

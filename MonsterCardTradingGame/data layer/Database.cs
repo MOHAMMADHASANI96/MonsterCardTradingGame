@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MTCG.data;
 using Npgsql;
 
 namespace MTCG.repository
@@ -47,6 +48,19 @@ namespace MTCG.repository
             }
             
         }
-
+        //The TRUNCATE TABLE command deletes the data inside a table, but not the table itself.
+        public void truncateTables()
+        {
+            String query = "truncate table users cascade;truncate table cards cascade;";
+            try
+            {
+                NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, new NpgsqlConn().getnpgsqlConn());
+                NpgsqlDataReader npgsqlDataReader = npgsqlCommand.ExecuteReader();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error:" + exception.Message);
+            }
+        }
     }
 }

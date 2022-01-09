@@ -16,9 +16,9 @@ namespace MonsterCardTradingGame.battle
             switch (resultCompare)
             {
                 case "SS":
-                    return new TwoSpell().processRequest(cardA, cardB);
+                    return new TwoSpells().processRequest(cardA, cardB);
                 case "MM":
-                    return new TwoMonster().processRequest(cardA, cardB);
+                    return new TwoMonsters().processRequest(cardA, cardB);
                 default:
                     return new OneSpellOneMonster().processRequest(cardA, cardB);
             }

@@ -183,7 +183,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateDeckTrue(String id)
         {
-            String query = String.Format("Update cards Set is_deck =true where id = '{0}'",id);
+            String query = String.Format("Update cards Set is_deck=true where id ='{0}'",id);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
