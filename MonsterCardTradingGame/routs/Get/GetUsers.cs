@@ -1,4 +1,5 @@
 ﻿using MonsterCardTradingGame.data.entity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,8 @@ namespace MonsterCardTradingGame.endpoints
                 if(subString[0] ==null || subString[1] == null || !user.username.Equals(subString[1]))
                     return ResponseHelper.forbidden();
 
-                return ResponseHelper.ok();
+                String jsonString = JsonConvert.SerializeObject(user);
+                return ResponseHelper.okJsonPayload(jsonString);
             }
             catch (Exception exception)
             {
