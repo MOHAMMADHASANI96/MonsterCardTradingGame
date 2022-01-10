@@ -119,9 +119,9 @@ namespace MonsterCardTradingGame.battle
                         {
                             // num of darw +1 
                             // update draw in stat table -> draw +1 PlayerA & PlayerB
-                            num_draw++;
-                            return (new StatsRepository().updateStatdrawByUsername(cardB.username) &&
-                                new StatsRepository().updateStatdrawByUsername(cardA.username));
+                            this.num_draw++;
+                            new StatsRepository().updateStatdrawByUsername(cardB.username);
+                            new StatsRepository().updateStatdrawByUsername(cardA.username);
                         }
                         
                     }

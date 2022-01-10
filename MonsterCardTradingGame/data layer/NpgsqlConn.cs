@@ -19,14 +19,12 @@ namespace MTCG.data
         public NpgsqlConn()
         {
             npgsqlConn = Database.NpgsqlConn;
-            if(npgsqlConn == null)
-                npgsqlConn.Open();
-            //if (npgsqlConn.State.ToString().Equals("Open"))
-            else
+
+            if (npgsqlConn.State.ToString().Equals("Open"))
             {
                 npgsqlConn.Close();
-                npgsqlConn.Open();
             }
+             npgsqlConn.Open();
         }
     }
 }

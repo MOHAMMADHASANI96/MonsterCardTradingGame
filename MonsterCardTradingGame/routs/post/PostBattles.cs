@@ -40,7 +40,7 @@ namespace MonsterCardTradingGame.routs.post
                         Console.WriteLine("Error:" + exception.Message);
                     }
                 }
-                //To Do
+                
                 if (BattleController.getInstance().isPlayed()) 
                     return ResponseHelper.okJsonPayload(BattleController.getInstance().getResult());
                 return ResponseHelper.forbidden("No player ready to play");

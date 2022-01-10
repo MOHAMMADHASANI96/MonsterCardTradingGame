@@ -122,7 +122,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatdrawByUsername(String username)
         {
-            String query = String.Format("Update stats Set draw = draw +1 where username = '{0}'", username);
+            String query = String.Format("Update stats Set draw = draw+1 where username = '{0}'", username);
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
