@@ -24,18 +24,18 @@ namespace MonsterCardTradingGame.Test
             new StatsRepository().addStat("Test1");
             new StatsRepository().addStat("Test2");
 
-            new CardsRepository().addCard("1", "Dragon", 20.0, 1, null, "Dragon");
+            new CardsRepository().addCard("1", "Dragon", 20.0, 1, "", "Dragon");
             new CardsRepository().addCard("2", "WaterSpell", 40.0, 2, "Water", "Spell");
             new CardsRepository().addCard("3", "FireSpell", 30.0, 1, "Fire", "Spell");
             new CardsRepository().addCard("4", "RegularSpell", 15.0, 2, "Regular", "Spell");
-            new CardsRepository().addCard("5", "Dragon", 50.0, 1, null, "Dragon");
-            new CardsRepository().addCard("6", "Knight", 55.0, 2, null, "Knight");
+            new CardsRepository().addCard("5", "Dragon", 50.0, 1, "", "Dragon");
+            new CardsRepository().addCard("6", "Knight", 55.0, 2, "", "Knight");
             new CardsRepository().addCard("7", "FireElf", 45.0, 1, "Fire", "Elf");
-            new CardsRepository().addCard("8", "Dragon", 32.0, 2, null, "Dragon");
+            new CardsRepository().addCard("8", "Dragon", 32.0, 2, "", "Dragon");
             new CardsRepository().addCard("9", "WaterSpell", 45.0, 1, "Water", "Spell");
             new CardsRepository().addCard("10", "WaterSpell", 45.0, 2, "Water", "Spell");
-            new CardsRepository().addCard("11", "Goblin", 20.0, 1, null, "Goblin");
-            new CardsRepository().addCard("12", "Dragon", 50.0, 1, null, "Dragon");
+            new CardsRepository().addCard("11", "Goblin", 20.0, 1, "", "Goblin");
+            new CardsRepository().addCard("12", "Dragon", 50.0, 1, "", "Dragon");
 
             new CardsRepository().updateUsernameAfterGetPackage("Test1", 1);
             new CardsRepository().updateUsernameAfterGetPackage("Test2", 2);

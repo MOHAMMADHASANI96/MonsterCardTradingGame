@@ -22,7 +22,7 @@ namespace MonsterCardTradingGame.routs.Help
             }
             catch (Exception)
             {
-                element_type = null;
+                element_type = "";
                 card_type = name;
             } 
         }

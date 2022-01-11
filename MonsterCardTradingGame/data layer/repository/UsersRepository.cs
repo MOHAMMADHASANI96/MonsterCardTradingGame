@@ -19,11 +19,19 @@ namespace MonsterCardTradingGame.data.repository
         // Registration
         public bool addUser(String username, String password)
         {
-            String query = String.Format("INSERT INTO users(username, name, password, token, bio, image) " +
-                "VALUES('{0}','{1}','{2}','{3}','{4}','{5}')",username,username,password,username+"-mtcgToken",null,null);
+            String query = String.Format("INSERT INTO users(username, name, password, token)" +
+                "VALUES(@username,@name, @password, @token)");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("name", username);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("password", password);
+                command.Parameters[2].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("token", username + "-mtcgToken");
+                command.Parameters[3].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -38,10 +46,12 @@ namespace MonsterCardTradingGame.data.repository
         // Login
         public User getUser(String username)
         {
-            String query = String.Format("Select * from users where username = '{0}'", username);
+            String query = String.Format("Select * from users where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
                 while (npgsqlDataReader.Read())
                 {
@@ -66,10 +76,12 @@ namespace MonsterCardTradingGame.data.repository
 
         public User getUserbyToken(String token)
         {
-            String query = String.Format("Select * from users where token = '{0}'", token);
+            String query = String.Format("Select * from users where token = @token");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("token", token);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
                 while (npgsqlDataReader.Read())
                 {
@@ -94,10 +106,18 @@ namespace MonsterCardTradingGame.data.repository
 
         public bool updateUser(String name,String bio,String image,String username)
         {
-            String query = String.Format("Update users set name= '{0}' , bio = '{1}', image= '{2}' where username= '{3}'" ,name, bio,image,username);
+            String query = String.Format("Update users set name= @name , bio = @bio, image= @image where username= @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("name", name);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("bio", bio);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("image", image);
+                command.Parameters[2].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[3].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -112,10 +132,14 @@ namespace MonsterCardTradingGame.data.repository
 
         public bool updateCoin(int coin, String username)
         {
-            String query = String.Format("Update users set coin= '{0}' where username= '{1}'", coin,username);
+            String query = String.Format("Update users set coin= @coin where username= @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("coin", coin);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Integer;
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;

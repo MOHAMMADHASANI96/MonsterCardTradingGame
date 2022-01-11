@@ -17,7 +17,7 @@ namespace MonsterCardTradingGame.Test
         public void Setup()
         {
             Database.GetInstance().truncateTables();
-            new CardsRepository().addCard("1","Dragons",25.0,1,null,"Dragons");
+            new CardsRepository().addCard("1","Dragons",25.0,1,"","Dragons");
             new CardsRepository().addCard("2", "WaterSpell", 20.0, 2, "Water", "Spell");
         }
        

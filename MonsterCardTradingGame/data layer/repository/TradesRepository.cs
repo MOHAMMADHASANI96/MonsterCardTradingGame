@@ -18,10 +18,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public Trade getTradeById(String id)
         {
-            String query = String.Format("select * from trades where id = '{0}'",id);
+            String query = String.Format("select * from trades where id = @id");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
                 while (npgsqlDataReader.Read())
                     return new Trade(
@@ -66,10 +68,14 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool checkTradeByIdAndUsername(String id, String username)
         {
-            String query = String.Format("select * from trades where id ='{0}' and username='{1}'", id, username);
+            String query = String.Format("select * from trades where id =@id and username=@username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader dataReader = command.ExecuteReader();
                 if (dataReader.Read() == false)
                     return false;
@@ -84,10 +90,22 @@ namespace MonsterCardTradingGame.data_layer.repository
         public bool addTrade(String username, String id,String card_id, String type, double min_damage)
         {
             String query = String.Format("INSERT INTO trades(username, id, card_id, type, min_damage, is_sold) " +
-               "VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", username, id, card_id, type, min_damage,false);
+               "VALUES(@username,@id,@card_id,@type,@min_damage,@is_sold)");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("card_id", card_id);
+                command.Parameters[2].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("type", type);
+                command.Parameters[3].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("min_damage", min_damage);
+                command.Parameters[4].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Double;
+                command.Parameters.AddWithValue("is_sold", false);
+                command.Parameters[5].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Boolean;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -101,10 +119,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool checkTradeById(String id)
         {
-            String query = String.Format("select * from trades where id ='{0}'", id);
+            String query = String.Format("select * from trades where id =@id");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader dataReader = command.ExecuteReader();
                 if (dataReader.Read() == false)
                     return false;
@@ -118,10 +138,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool deleteTradeById(String id)
         {
-            String query = String.Format("delete from trades where id ='{0}'", id);
+            String query = String.Format("delete from trades where id =@id");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -136,10 +158,14 @@ namespace MonsterCardTradingGame.data_layer.repository
         public bool updateIsSoldById(String id)
         {
 
-            String query = String.Format("Update trades Set is_sold =true where id = '{0}'",id);
+            String query = String.Format("Update trades Set is_sold =@is_sold where id = @id");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
+                command.Parameters.AddWithValue("is_sold", true);
+                command.Parameters[1].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Boolean;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;

@@ -19,10 +19,12 @@ namespace MonsterCardTradingGame.data_layer.repository
 
         public bool addStat(String username)
         {
-            String query = String.Format("INSERT INTO stats(username) VALUES('{0}')", username);
+            String query = String.Format("INSERT INTO stats(username) VALUES(@username)");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -36,10 +38,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public Stat getStat(String username)
         {
-            String query = String.Format("Select * from stats where username='{0}'", username);
+            String query = String.Format("Select * from stats where username=@username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
                 while (npgsqlDataReader.Read())
                 {
@@ -88,10 +92,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatWinnerByUsername(String username)
         {
-            String query = String.Format("Update stats Set elo =elo+3,win=win+1 where username = '{0}'", username);
+            String query = String.Format("Update stats Set elo =elo+3,win=win+1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -105,10 +111,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatLoserByUsername(String username)
         {
-            String query = String.Format("Update stats Set elo =elo-5,lose = lose +1 where username = '{0}'", username);
+            String query = String.Format("Update stats Set elo =elo-5,lose = lose +1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
@@ -122,10 +130,12 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatdrawByUsername(String username)
         {
-            String query = String.Format("Update stats Set draw = draw+1 where username = '{0}'", username);
+            String query = String.Format("Update stats Set draw = draw+1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters[0].NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar;
                 int dataReader = command.ExecuteNonQuery();
                 if (dataReader == 0)
                     return false;
