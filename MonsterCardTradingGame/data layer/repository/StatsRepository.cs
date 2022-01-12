@@ -92,7 +92,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatWinnerByUsername(String username)
         {
-            String query = String.Format("Update stats Set elo =elo+3,win=win+1 where username = @username");
+            String query = String.Format("Update stats Set elo =elo+3,win=win+1,num_play = num_play+1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
@@ -111,7 +111,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatLoserByUsername(String username)
         {
-            String query = String.Format("Update stats Set elo =elo-5,lose = lose +1 where username = @username");
+            String query = String.Format("Update stats Set elo =elo-5,lose = lose +1,num_play = num_play+1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);
@@ -130,7 +130,7 @@ namespace MonsterCardTradingGame.data_layer.repository
         }
         public bool updateStatdrawByUsername(String username)
         {
-            String query = String.Format("Update stats Set draw = draw+1 where username = @username");
+            String query = String.Format("Update stats Set draw = draw+1,num_play = num_play+1 where username = @username");
             try
             {
                 NpgsqlCommand command = new NpgsqlCommand(query, this.NpgsqlConn);

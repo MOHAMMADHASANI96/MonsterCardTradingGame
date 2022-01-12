@@ -21,6 +21,7 @@ namespace MonsterCardTradingGame.battle
         private int num_draw = 0;
         private int win = 0;
         private int lose = 0;
+        private int num_play = 0;
         bool is_played = false;
         private String result = null;
 
@@ -136,8 +137,9 @@ namespace MonsterCardTradingGame.battle
         }
         public String getResult()
         {
-            this.result = this.playerA + ": win = " + this.win + " , lose = " + this.lose + " , draw = " + this.num_draw;
-            this.result += this.playerB + ": win = " + this.lose + " , lose = " + this.win + " , draw = " + this.num_draw;
+            this.num_play = this.win + this.lose + this.num_draw;
+            this.result = this.playerA + ": win = " + this.win + " , lose = " + this.lose + " , draw = " + this.num_draw + ", num_play ="+ this.num_play;
+            this.result += this.playerB + ": win = " + this.lose + " , lose = " + this.win + " , draw = " + this.num_draw + ", num_play =" + this.num_play;
             return this.result;
         }
         public bool isPlayed()
